@@ -34,6 +34,7 @@ public class App {
 
     // method for game rounds
     private static void takeTurn(ArrayList<Player> players, Scanner scanner) {
+        // change to 5 rounds after testing
         for (int i = 0; i < 2; i++) {
                 System.out.println("-------------------");
                 System.out.println("Spelomgång " + (i + 1) + "!");
@@ -54,7 +55,7 @@ public class App {
             }
             System.out.println("Current score: ");
             for (Player player : players) {
-                System.out.println(String.format("%s: %s points", player.getName(), player.getPoints()));
+                System.out.println(String.format("%s: %s points", player.getName(), player.getScore()));
             }
         }
     }

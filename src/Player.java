@@ -2,13 +2,13 @@ import java.util.ArrayList;
 
 public class Player {
   private String name;
-  private int points;
+  private int score;
   private ArrayList<Die> dice;
 
   // constructor
   public Player(String name) {
     this.name = name;
-    this.points = 0;
+    this.score = 0;
     this.dice = new ArrayList<Die>();
   }
 
@@ -18,8 +18,8 @@ public class Player {
   }
 
   // points getter 
-  public int getPoints() {
-    return points;
+  public int getScore() {
+    return score;
   }
 
   // method for rolling all dice
@@ -38,7 +38,7 @@ public class Player {
   }
 
   public void increaseScore() {
-    this.points += 1;
+    this.score += 1;
   }
 
   public void addDie(int sides) {
