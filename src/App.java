@@ -37,7 +37,7 @@ public class App {
     // method for game rounds
     private static void takeTurn(ArrayList<Player> players, Scanner scanner) {
         // change to 5 rounds after testing
-        for (int i = 0; i < 2; i++) {
+        for (int i = 0; i < 5; i++) {
                 System.out.println("-------------------");
                 System.out.println("Spelomgång " + (i + 1) + "!");
                 System.out.println("-------------------");
@@ -103,8 +103,7 @@ public class App {
     public static void main(String[] args) throws Exception {
         Scanner scanner = new Scanner(System.in);
         
-        ArrayList<Player> players = new ArrayList<>();
-        players = initialize(scanner);
+        ArrayList<Player> players = initialize(scanner);
         takeTurn(players, scanner);
         getWinners(players);
         scanner.close();
