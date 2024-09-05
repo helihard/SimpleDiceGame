@@ -1,20 +1,20 @@
 import java.util.Random;
 
 public class Die {
-  private int currentValue;
-  private int numberOfSides;
   private Random randomIntPicker;
+  private int sides;
+  private int currentValue;
 
   // contructor
-  public Die(int currentValue) {
-    this.currentValue = currentValue;
-    this.numberOfSides = 6;
+  public Die(int sides) {
     this.randomIntPicker = new Random();
+    this.sides = sides;
+    this.currentValue = randomIntPicker.nextInt(sides) + 1;
   }
 
   // number of sides getter
-  public int getNumberOfSides() {
-    return numberOfSides;
+  public int getSides() {
+    return sides;
   }
 
   // current value getter
@@ -23,7 +23,7 @@ public class Die {
   }
 
   public void roll() {
-    this.currentValue = this.randomIntPicker.nextInt(numberOfSides) + 1;
+    this.currentValue = this.randomIntPicker.nextInt(sides) + 1;
     System.out.println(getCurrentValue());
   }
 }
