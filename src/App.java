@@ -1,4 +1,6 @@
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Scanner;
 
 public class App {
@@ -53,11 +55,49 @@ public class App {
                     System.out.println("Värdet av ditt slag är " + dieValue + ". Du gissade fel!");
                 }
             }
-            System.out.println("Current score: ");
+            /*System.out.println("Current score: ");
             for (Player player : players) {
                 System.out.println(String.format("%s: %s points", player.getName(), player.getScore()));
-            }
+            }*/
         }
+    }
+
+    // method for getting winner of game
+    private static ArrayList<Player> getWinners(ArrayList<Player> players) {
+        Collections.sort(players, new Comparator<Player>() {
+            public int compare(Player p1, Player p2) {
+                return Integer.compare(p2.getScore(), p1.getScore());
+            }       
+        });
+
+        int highestScore = players.get(0).getScore();
+        ArrayList<Player> winners = new ArrayList<>();
+
+        if (highestScore == 0) {
+            System.out.println("Nobody won this game. Better luck next time!");
+        } else {
+            for (Player player : players) {
+                if (player.getScore() == highestScore) {
+                    winners.add(player);
+                } else {
+                    break;
+                }
+            }
+            if (winners.size() == 1) {
+                Player winner = winners.get(0);
+                System.out.println(String.format("The winner takes it all! %s: %s points", winner.getName(), winner.getScore()));
+            } else {
+                System.out.println("We have several winners!");
+                for (Player winner : winners) {
+                    System.out.println(String.format("%s: %s points", winner.getName(), winner.getScore()));
+                }
+            } 
+        }
+        System.out.println("All scores:");
+        for (Player player : players) {
+            System.out.println(String.format("%s: %s points", player.getName(), player.getScore()));
+        }
+        return winners;
     }
 
     public static void main(String[] args) throws Exception {
@@ -66,6 +106,7 @@ public class App {
         ArrayList<Player> players = new ArrayList<>();
         players = initialize(scanner);
         takeTurn(players, scanner);
+        getWinners(players);
         scanner.close();
     }
 }

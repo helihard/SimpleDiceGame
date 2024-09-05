@@ -24,6 +24,5 @@ public class Die {
 
   public void roll() {
     this.currentValue = this.randomIntPicker.nextInt(sides) + 1;
-    System.out.println(getCurrentValue());
   }
 }
