@@ -113,9 +113,9 @@ public class App {
                 
                 if (guess == dieValue) {
                     player.increaseScore();
-                    System.out.println("The value of your throw is " + dieValue + ". Your guess was correct!");
+                    System.out.println(String.format("The value of your throw is %s. Your guess was correct!", dieValue));
                 } else {
-                    System.out.println("The value of your throw is " + dieValue + ". Your guess was incorrect!");
+                    System.out.println(String.format("The value of your throw is %s. Your guess was incorrect!", dieValue));
                 }
             }
 
@@ -172,7 +172,7 @@ public class App {
                 Player winner = winners.get(0);
                 System.out.println(String.format("The winner takes it all! %s: %s points", winner.getName(), winner.getScore()));
             } else {
-                System.out.println("We have several winners!");
+                System.out.println("We have a tie!");
                 for (Player winner : winners) {
                     System.out.println(String.format("%s: %s points", winner.getName(), winner.getScore()));
                 }
