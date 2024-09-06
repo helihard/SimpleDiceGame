@@ -51,10 +51,13 @@ public class App {
                     System.out.println("The value of your throw is " + dieValue + ". Your guess was incorrect!");
                 }
             }
-            /*System.out.println("Current score: ");
-            for (Player player : players) {
-                System.out.println(String.format("%s: %s points", player.getName(), player.getScore()));
-            }*/
+
+            if (i < 4) {
+                System.out.println("Current score: ");
+                for (Player player : players) {
+                    System.out.println(String.format("%s: %s points", player.getName(), player.getScore()));
+                }
+            }
         }
     }
 
