@@ -40,10 +40,35 @@ public class App {
                 System.out.println("Game round " + (i + 1) + "!");
                 System.out.println("-------------------");
             for (Player player : players) {
-                System.out.println(player.getName() + ", make a guess about the value of your roll:");
-                int guess = Integer.parseInt(scanner.nextLine().trim());
+                int guess = -1;
+                boolean isValidInput = false;
+                int maxThrowValue = getMaxThrowValue(player);
+
+                while (!isValidInput) {
+                    System.out.println(player.getName() + ", make a guess about the value of your roll:");
+                    String input = scanner.nextLine().trim();
+
+                    if (!input.isEmpty()) {
+                        try {
+                            guess = Integer.parseInt(input);
+
+                            if (guess < 0) {
+                                System.out.println("Invalid input. Please enter a positive number.");
+                            } else if (guess > maxThrowValue) {
+                                System.out.println("The largest possible value of your throw is " + maxThrowValue + ". Please make another guess.");
+                            } else {
+                                isValidInput = true;
+                            }
+                        } catch (NumberFormatException e) {
+                            System.out.println("Invalid input. Please enter a valid number.");
+                        }
+                    } else {
+                        System.out.println("Input cannot be empty. Please enter a valid number.");
+                    }
+                }
                 player.rollDice();
                 int dieValue = player.getDieValue();
+                
                 if (guess == dieValue) {
                     player.increaseScore();
                     System.out.println("The value of your throw is " + dieValue + ". Your guess was correct!");
@@ -59,6 +84,18 @@ public class App {
                 }
             }
         }
+    }
+
+    // helper method for takeTurn() 
+    public static int getMaxThrowValue(Player player) {
+        int maxValue = 0;
+        ArrayList<Die> dice = player.getDice();
+
+        for (Die die : dice) {
+            int numberOfSides = die.getSides();
+            maxValue += numberOfSides;
+        }
+        return maxValue;
     }
 
     // method for getting winner(s) of game

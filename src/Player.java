@@ -22,6 +22,11 @@ public class Player {
     return score;
   }
 
+  // dice getter
+  public ArrayList<Die> getDice() {
+    return dice;
+  }
+
   // method for rolling all dice
   public void rollDice() {
     for (Die die : dice) {
