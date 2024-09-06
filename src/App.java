@@ -10,16 +10,16 @@ public class App {
         ArrayList<Player> players = new ArrayList<>();
         int numberOfPlayers, numberOfDice, numberOfSides;
 
-        System.out.println("Hur många spelare vill spela?");
+        System.out.println("How many players for this game?");
         numberOfPlayers = Integer.parseInt(scanner.nextLine().trim());
-        System.out.println("Hur många tärningar ska varje spelare ha?");
+        System.out.println("How many dice for each player?");
         numberOfDice = Integer.parseInt(scanner.nextLine().trim());
-        System.out.println("Hur många sidor ska varje tärning ha?");
+        System.out.println("How many sides of each die?");
         numberOfSides = Integer.parseInt(scanner.nextLine().trim());
 
         for (int i = 0; i < numberOfPlayers; i++) {
             String playerName;
-            System.out.println("Ange namn på spelare " + (i + 1) + ":");
+            System.out.println("Add name of player " + (i + 1) + ":");
             playerName = scanner.nextLine().trim();
             Player player = new Player(playerName);
             players.add(player);
@@ -38,20 +38,18 @@ public class App {
     private static void takeTurn(ArrayList<Player> players, Scanner scanner) {
         for (int i = 0; i < 5; i++) {
                 System.out.println("-------------------");
-                System.out.println("Spelomgång " + (i + 1) + "!");
+                System.out.println("Game round " + (i + 1) + "!");
                 System.out.println("-------------------");
             for (Player player : players) {
-                System.out.println(player.getName() + ", gissa på ett värde:");
+                System.out.println(player.getName() + ", make a guess about the value of your roll:");
                 int guess = Integer.parseInt(scanner.nextLine().trim());
-                //System.out.println("current guess: " + guess);
                 player.rollDice();
                 int dieValue = player.getDieValue();
-                //System.out.println("current value: " + dieValue);
                 if (guess == dieValue) {
                     player.increaseScore();
-                    System.out.println("Värdet av ditt slag är " + dieValue + ". Du gissade rätt!");
+                    System.out.println("The value of your throw is " + dieValue + ". Your guess was correct!");
                 } else {
-                    System.out.println("Värdet av ditt slag är " + dieValue + ". Du gissade fel!");
+                    System.out.println("The value of your throw is " + dieValue + ". Your guess was incorrect!");
                 }
             }
             /*System.out.println("Current score: ");
