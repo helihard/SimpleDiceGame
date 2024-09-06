@@ -1,6 +1,5 @@
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.Scanner;
 
 public class App {
@@ -61,11 +60,7 @@ public class App {
 
     // method for getting winner(s) of game
     private static ArrayList<Player> getWinners(ArrayList<Player> players) {
-        Collections.sort(players, new Comparator<Player>() {
-            public int compare(Player p1, Player p2) {
-                return Integer.compare(p2.getScore(), p1.getScore());
-            }       
-        });
+        Collections.sort(players, new PlayerComparator());
         return players;
     }
 
