@@ -36,7 +36,6 @@ public class App {
 
     // method for game rounds
     private static void takeTurn(ArrayList<Player> players, Scanner scanner) {
-        // change to 5 rounds after testing
         for (int i = 0; i < 5; i++) {
                 System.out.println("-------------------");
                 System.out.println("Spelomgång " + (i + 1) + "!");
@@ -62,17 +61,23 @@ public class App {
         }
     }
 
-    // method for getting winner of game
+    // method for getting winner(s) of game
     private static ArrayList<Player> getWinners(ArrayList<Player> players) {
         Collections.sort(players, new Comparator<Player>() {
             public int compare(Player p1, Player p2) {
                 return Integer.compare(p2.getScore(), p1.getScore());
             }       
         });
+        return players;
+    }
 
+    // printer method for getWinners
+    private static void printWinners(ArrayList<Player> players) {
         int highestScore = players.get(0).getScore();
         ArrayList<Player> winners = new ArrayList<>();
-
+        System.out.println("-------------------");
+        System.out.println("Game over!");
+        System.out.println("-------------------");
         if (highestScore == 0) {
             System.out.println("Nobody won this game. Better luck next time!");
         } else {
@@ -97,7 +102,6 @@ public class App {
         for (Player player : players) {
             System.out.println(String.format("%s: %s points", player.getName(), player.getScore()));
         }
-        return winners;
     }
 
     public static void main(String[] args) throws Exception {
@@ -105,7 +109,7 @@ public class App {
         
         ArrayList<Player> players = initialize(scanner);
         takeTurn(players, scanner);
-        getWinners(players);
+        printWinners(getWinners(players));
         scanner.close();
     }
 }
