@@ -7,19 +7,15 @@ public class App {
     // method for initialising simple dice game
     private static ArrayList<Player> initialize(Scanner scanner) {
         ArrayList<Player> players = new ArrayList<>();
-        int numberOfPlayers, numberOfDice, numberOfSides;
-
-        System.out.println("How many players for this game?");
-        numberOfPlayers = Integer.parseInt(scanner.nextLine().trim());
-        System.out.println("How many dice for each player?");
-        numberOfDice = Integer.parseInt(scanner.nextLine().trim());
-        System.out.println("How many sides of each die?");
-        numberOfSides = Integer.parseInt(scanner.nextLine().trim());
+        int maxNumberOfPlayers = 6;
+        int maxNumberOfDice = 6;
+        int maxNumberOfSides =  12;
+        int numberOfPlayers = getValidNumberInput(scanner, String.format("How many players for this game? (Max: %s)", maxNumberOfPlayers), "players", maxNumberOfPlayers);
+        int numberOfDice = getValidNumberInput(scanner, String.format("How many dice for each player? (Max: %s)", maxNumberOfDice), "dice per player", maxNumberOfDice);
+        int numberOfSides = getValidNumberInput(scanner, String.format("How many sides of each die? (Max: %s)", maxNumberOfSides), "sides per die", maxNumberOfSides);
 
         for (int i = 0; i < numberOfPlayers; i++) {
-            String playerName;
-            System.out.println("Add name of player " + (i + 1) + ":");
-            playerName = scanner.nextLine().trim();
+            String playerName = getValidPlayerName(scanner, i + 1);
             Player player = new Player(playerName);
             players.add(player);
         }
@@ -33,6 +29,51 @@ public class App {
         return players;
     }
 
+    // helper method for initialize method
+    // for getting valid number input (error handling)
+    private static int getValidNumberInput(Scanner scanner, String prompt, String type, int max) {
+        int number = -1;
+        boolean isValidInput = false;
+
+        while (!isValidInput) {
+            System.out.println(prompt);
+            String input = scanner.nextLine().trim();
+
+            try {
+                number = Integer.parseInt(input);
+                if (number < 1) {
+                    System.out.println(String.format("Invalid input. Please enter a number greater than 0 for %s.", type));
+                } else if (number > max) {
+                    System.out.println(String.format("The max number of %s is %s. Please provide a number between 1 and %s.", type, max, max));
+                } else {
+                    isValidInput = true;
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid input. Please enter a valid number.");
+            }
+        }
+        return number;
+    }
+
+    // helper method for initialize method
+    // for getting valid name input (error handling) 
+    private static String getValidPlayerName(Scanner scanner, int playerNumber) {
+        String playerName = "";
+        boolean isValidInput = false;
+        
+        while (!isValidInput) {
+            System.out.println(String.format("Add name of player %s:", playerNumber));
+            playerName = scanner.nextLine().trim();
+
+            if (playerName.isEmpty()) {
+                System.out.println("You need to provide a name. Please try again.");
+            } else {
+                isValidInput = true;
+            }
+        }
+        return playerName;
+    }
+
     // method for game rounds
     private static void takeTurn(ArrayList<Player> players, Scanner scanner) {
         for (int i = 0; i < 5; i++) {
@@ -42,20 +83,21 @@ public class App {
             for (Player player : players) {
                 int guess = -1;
                 boolean isValidInput = false;
+                int minThrowValue = getMinThrowValue(player);
                 int maxThrowValue = getMaxThrowValue(player);
 
                 while (!isValidInput) {
-                    System.out.println(player.getName() + ", make a guess about the value of your roll:");
+                    System.out.println(String.format("%s, make a guess about the value of your roll (between %s and %s):", player.getName(), minThrowValue, maxThrowValue));
                     String input = scanner.nextLine().trim();
 
                     if (!input.isEmpty()) {
                         try {
                             guess = Integer.parseInt(input);
 
-                            if (guess < 0) {
-                                System.out.println("Invalid input. Please enter a positive number.");
+                            if (guess < minThrowValue) {
+                                System.out.println(String.format("The smallest possible value of your throw is %s. Please make another guess.", minThrowValue));
                             } else if (guess > maxThrowValue) {
-                                System.out.println("The largest possible value of your throw is " + maxThrowValue + ". Please make another guess.");
+                                System.out.println(String.format("The largest possible value of your throw is %s. Please make another guess.", maxThrowValue));
                             } else {
                                 isValidInput = true;
                             }
@@ -96,6 +138,11 @@ public class App {
             maxValue += numberOfSides;
         }
         return maxValue;
+    }
+
+    // helper method for takeTurn()
+    public static int getMinThrowValue(Player player) {
+        return player.getDice().size();
     }
 
     // method for getting winner(s) of game
