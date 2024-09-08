@@ -77,37 +77,15 @@ public class App {
     // method for game rounds
     private static void takeTurn(ArrayList<Player> players, Scanner scanner) {
         for (int i = 0; i < 5; i++) {
-                System.out.println("-------------------");
-                System.out.println("Game round " + (i + 1) + "!");
-                System.out.println("-------------------");
+            System.out.println("-------------------");
+            System.out.println("Game round " + (i + 1) + "!");
+            System.out.println("-------------------");
+
             for (Player player : players) {
-                int guess = -1;
-                boolean isValidInput = false;
                 int minThrowValue = getMinThrowValue(player);
                 int maxThrowValue = getMaxThrowValue(player);
+                int guess = getValidGuess(scanner, player, minThrowValue, maxThrowValue);
 
-                while (!isValidInput) {
-                    System.out.println(String.format("%s, make a guess about the value of your roll (between %s and %s):", player.getName(), minThrowValue, maxThrowValue));
-                    String input = scanner.nextLine().trim();
-
-                    if (!input.isEmpty()) {
-                        try {
-                            guess = Integer.parseInt(input);
-
-                            if (guess < minThrowValue) {
-                                System.out.println(String.format("The smallest possible value of your throw is %s. Please make another guess.", minThrowValue));
-                            } else if (guess > maxThrowValue) {
-                                System.out.println(String.format("The largest possible value of your throw is %s. Please make another guess.", maxThrowValue));
-                            } else {
-                                isValidInput = true;
-                            }
-                        } catch (NumberFormatException e) {
-                            System.out.println("Invalid input. Please enter a valid number.");
-                        }
-                    } else {
-                        System.out.println("Input cannot be empty. Please enter a valid number.");
-                    }
-                }
                 player.rollDice();
                 int dieValue = player.getDieValue();
                 
@@ -143,6 +121,37 @@ public class App {
     // helper method for takeTurn()
     public static int getMinThrowValue(Player player) {
         return player.getDice().size();
+    }
+
+    // helper method for takeTurn()
+    // for getting valid guess input (error handling) 
+    public static int getValidGuess(Scanner scanner, Player player, int minThrowValue, int maxThrowValue) {
+        int guess = -1;
+        boolean isValidInput = false;
+
+        while (!isValidInput) {
+            System.out.println(String.format("%s, make a guess about the value of your roll (between %s and %s):", player.getName(), minThrowValue, maxThrowValue));
+            String input = scanner.nextLine().trim();
+
+            if (!input.isEmpty()) {
+                try {
+                    guess = Integer.parseInt(input);
+
+                    if (guess < minThrowValue) {
+                        System.out.println(String.format("The smallest possible value of your throw is %s. Please make another guess.", minThrowValue));
+                    } else if (guess > maxThrowValue) {
+                        System.out.println(String.format("The largest possible value of your throw is %s. Please make another guess.", maxThrowValue));
+                    } else {
+                        isValidInput = true;
+                    }
+                } catch (NumberFormatException e) {
+                    System.out.println("Invalid input. Please enter a valid number.");
+                }
+            } else {
+                System.out.println("Input cannot be empty. Please enter a valid number.");
+            }
+        }  
+        return guess;   
     }
 
     // method for getting winner(s) of game
