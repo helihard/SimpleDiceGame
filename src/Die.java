@@ -28,6 +28,6 @@ public class Die {
   private static Random randomIntPicker = new Random();
 
   public void roll() {
-    this.currentValue = randomIntPicker.nextInt(sides) + 1;
+    this.currentValue = randomIntPicker.nextInt(this.sides) + 1;
   }
 }

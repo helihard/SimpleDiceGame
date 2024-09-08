@@ -7,7 +7,7 @@ public class Player {
 
   // empty constructor
   public Player() {
-    
+
   }
 
   // constructor with argument
@@ -22,7 +22,7 @@ public class Player {
     return name;
   }
 
-  // points getter 
+  // score getter 
   public int getScore() {
     return score;
   }
@@ -32,16 +32,16 @@ public class Player {
     return dice;
   }
 
-  // method for rolling all dice
+  // method for rolling all the individual player's dice
   public void rollDice() {
-    for (Die die : dice) {
+    for (Die die : this.dice) {
       die.roll();
     }
   }
 
   public int getDieValue() {
     int total = 0;
-    for (Die die : dice) {
+    for (Die die : this.dice) {
       total += die.getCurrentValue();
     }
     return total;
