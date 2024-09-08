@@ -167,6 +167,7 @@ public class App {
         System.out.println("-------------------");
         System.out.println("Game over!");
         System.out.println("-------------------");
+        
         if (highestScore == 0) {
             System.out.println("Nobody won this game. Better luck next time!");
         } else {
