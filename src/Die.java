@@ -1,20 +1,18 @@
 import java.util.Random;
 
 public class Die {
-  private Random randomIntPicker;
-  private int sides;
   private int currentValue;
+  private int sides;
 
   // empty constructor
   public Die() {
 
   }
 
-  // contructor with argument
+  // constructor with argument
   public Die(int sides) {
-    this.randomIntPicker = new Random();
+    this.currentValue = 1;
     this.sides = sides;
-    this.currentValue = randomIntPicker.nextInt(sides) + 1;
   }
 
   // number of sides getter
@@ -27,7 +25,9 @@ public class Die {
     return currentValue;
   }
 
+  private static Random randomIntPicker = new Random();
+
   public void roll() {
-    this.currentValue = this.randomIntPicker.nextInt(sides) + 1;
+    this.currentValue = randomIntPicker.nextInt(sides) + 1;
   }
 }
