@@ -42,9 +42,9 @@ public class App {
             try {
                 number = Integer.parseInt(input);
                 if (number < 1) {
-                    System.out.println(String.format("Invalid input. Please enter a number greater than 0 for %s.", type));
+                    System.out.println(String.format("Invalid input. Please enter a number between 1 and %s for %s.", max, type));
                 } else if (number > max) {
-                    System.out.println(String.format("The max number of %s is %s. Please provide a number between 1 and %s.", type, max, max));
+                    System.out.println(String.format("The max number of %s is %s. Please enter a number between 1 and %s.", type, max, max));
                 } else {
                     isValidInput = true;
                 }
