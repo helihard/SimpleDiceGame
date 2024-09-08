@@ -5,7 +5,12 @@ public class Player {
   private int score;
   private ArrayList<Die> dice;
 
-  // constructor
+  // empty constructor
+  public Player() {
+    
+  }
+
+  // constructor with argument
   public Player(String name) {
     this.name = name;
     this.score = 0;

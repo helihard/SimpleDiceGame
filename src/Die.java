@@ -5,7 +5,12 @@ public class Die {
   private int sides;
   private int currentValue;
 
-  // contructor
+  // empty constructor
+  public Die() {
+
+  }
+
+  // contructor with argument
   public Die(int sides) {
     this.randomIntPicker = new Random();
     this.sides = sides;
