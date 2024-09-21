@@ -7,8 +7,8 @@ public class SimpleDiceGame {
   private ArrayList<Player> players;
 
 
-  public SimpleDiceGame() {
-    this.scanner = new Scanner(System.in);
+  public SimpleDiceGame(Scanner scanner) {
+    this.scanner = scanner;
     this.players = initialize();
   }
 
@@ -201,9 +201,5 @@ public class SimpleDiceGame {
     for (Player player : this.players) {
       System.out.println(String.format("%s: %s points", player.getName(), player.getScore()));
     }
-  }
-
-  public void close() {
-    scanner.close();
   }
 }

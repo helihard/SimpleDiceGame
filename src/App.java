@@ -1,8 +1,12 @@
+import java.util.Scanner;
+
 public class App {
     public static void main(String[] args) throws Exception {
-        SimpleDiceGame game = new SimpleDiceGame();
+        Scanner scanner = new Scanner(System.in);
+
+        SimpleDiceGame game = new SimpleDiceGame(scanner);
         game.takeTurn();
         game.printWinners();
-        game.close();
+        scanner.close();
     }
 }
